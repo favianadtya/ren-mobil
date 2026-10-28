@@ -11,6 +11,10 @@ use Illuminate\Validation\Rule;
 
 class MobilController extends Controller
 {
+    /**
+     * Daftar mobil
+     * Mengambil seluruh data mobil.
+     */
     public function index(): JsonResponse
     {
         return response()->json([
@@ -19,6 +23,10 @@ class MobilController extends Controller
         ], 200);
     }
 
+    /**
+     * Tambah mobil
+     * Menyimpan data mobil baru.
+     */
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate($this->rules(), $this->messages());
@@ -30,6 +38,10 @@ class MobilController extends Controller
         ], 201);
     }
 
+    /**
+     * Detail mobil
+     * Mengambil detail satu mobil.
+     */
     public function show(int $id): JsonResponse
     {
         $mobil = Mobil::find($id);
@@ -44,6 +56,10 @@ class MobilController extends Controller
         ], 200);
     }
 
+    /**
+     * Perbarui mobil
+     * PUT mewajibkan semua field; PATCH hanya field yang diubah.
+     */
     public function update(Request $request, int $id): JsonResponse
     {
         $mobil = Mobil::find($id);
@@ -64,6 +80,10 @@ class MobilController extends Controller
         ], 200);
     }
 
+    /**
+     * Hapus mobil
+     * Menghapus data mobil.
+     */
     public function destroy(int $id): JsonResponse
     {
         $mobil = Mobil::find($id);

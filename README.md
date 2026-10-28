@@ -50,6 +50,10 @@ Kolom mobil terdiri dari `nama`, `brand`, `harga`, `tahun`, `transmisi`, `bahan_
 
 `PUT` memerlukan seluruh field wajib; `PATCH` hanya memvalidasi field yang dikirim. Respons berhasil menggunakan status 200 untuk GET, update, dan delete serta 201 untuk create. Data tidak ditemukan menghasilkan 404 dan input tidak valid menghasilkan 422.
 
+## Dokumentasi API
+
+Setelah server berjalan, buka [dokumentasi interaktif API](http://127.0.0.1:8000/docs/api). Spesifikasi OpenAPI tersedia di `/docs/api.json`.
+
 ## Pengujian
 
 Jalankan pengujian dengan:
