@@ -2,25 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Mobil extends Model
 {
+    use HasFactory;
+
     protected $table = 'mobil';
 
     protected $fillable = [
         'nama',
-        'merk',
-        'tahun',
-        'warna',
+        'brand',
         'harga',
-        'deskripsi',
+        'tahun',
+        'transmisi',
+        'bahan_bakar',
+        'status',
+        'foto',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'harga' => 'decimal:2',
-        ];
-    }
+    protected $casts = [
+        'harga' => 'integer',
+        'tahun' => 'integer',
+    ];
 }

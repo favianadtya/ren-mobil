@@ -45,12 +45,14 @@ class MobilController extends Controller
         $required = $partial ? 'sometimes|required|' : 'required|';
 
         return [
-            'nama' => $required . 'string|max:100',
-            'merk' => $required . 'string|max:100',
-            'tahun' => $required . 'integer|min:1886|max:' . (now()->year + 1),
-            'warna' => $required . 'string|max:50',
-            'harga' => $required . 'numeric|min:0|max:9999999999999.99',
-            'deskripsi' => $partial ? 'sometimes|nullable|string' : 'nullable|string',
+            'nama' => $required . 'string',
+            'brand' => $required . 'string',
+            'harga' => $required . 'integer|min:0',
+            'tahun' => $required . 'integer|min:0|max:65535',
+            'transmisi' => $required . 'in:Manual,Matic,CVT',
+            'bahan_bakar' => $required . 'in:Bensin,Diesel,Hybrid,Listrik',
+            'status' => $partial ? 'sometimes|required|in:tersedia,sold' : 'sometimes|in:tersedia,sold',
+            'foto' => $partial ? 'sometimes|nullable|string' : 'nullable|string',
         ];
     }
 }

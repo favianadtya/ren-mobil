@@ -44,7 +44,7 @@ Contoh body untuk `POST`:
 }
 ```
 
-`nama` dan `merk` wajib berupa teks maksimal 100 karakter. `tahun` wajib berupa bilangan antara 1886 dan satu tahun dari tahun berjalan. `warna` wajib berupa teks maksimal 50 karakter. `harga` wajib berupa angka nonnegatif maksimal 9999999999999.99. `deskripsi` berupa teks opsional dan boleh kosong.
+Kolom mobil terdiri dari `nama`, `brand`, `harga`, `tahun`, `transmisi`, `bahan_bakar`, `status`, dan `foto`. `transmisi` menerima `Manual`, `Matic`, atau `CVT`; `bahan_bakar` menerima `Bensin`, `Diesel`, `Hybrid`, atau `Listrik`; `status` menerima `tersedia` atau `sold` dan secara default bernilai `tersedia`. `foto` bersifat opsional.
 
 `PUT` memerlukan `nama`, `merk`, `tahun`, `warna`, dan `harga`; `PATCH` hanya memerlukan nilai yang ingin diubah. Respons berhasil menggunakan status 200 untuk GET dan update, 201 untuk create, serta 204 untuk delete. Data tidak ditemukan menghasilkan 404 dan input tidak valid menghasilkan 422.
 

@@ -21,7 +21,7 @@ class MobilApiTest extends TestCase
 
         $this->getJson('/api/mobil/' . $mobil->id)
             ->assertOk()
-            ->assertJsonPath('merk', 'Honda');
+            ->assertJsonPath('brand', 'Honda');
     }
 
     public function test_it_creates_mobil(): void
@@ -32,7 +32,7 @@ class MobilApiTest extends TestCase
 
         $this->assertDatabaseHas('mobil', [
             'nama' => 'Honda Civic',
-            'merk' => 'Honda',
+            'brand' => 'Honda',
         ]);
     }
 
@@ -42,12 +42,12 @@ class MobilApiTest extends TestCase
 
         $this->patchJson('/api/mobil/' . $mobil->id, ['harga' => 275000000])
             ->assertOk()
-            ->assertJsonPath('harga', '275000000.00');
+            ->assertJsonPath('harga', 275000000);
 
         $this->assertDatabaseHas('mobil', [
             'id' => $mobil->id,
             'nama' => 'Honda Civic',
-            'harga' => '275000000.00',
+            'harga' => 275000000,
         ]);
     }
 
@@ -64,7 +64,7 @@ class MobilApiTest extends TestCase
     {
         $this->postJson('/api/mobil', ['harga' => -1])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['nama', 'merk', 'tahun', 'warna', 'harga']);
+            ->assertJsonValidationErrors(['nama', 'brand', 'tahun', 'transmisi', 'bahan_bakar', 'harga']);
     }
 
     public function test_it_returns_not_found_for_missing_mobil(): void
@@ -76,11 +76,13 @@ class MobilApiTest extends TestCase
     {
         return [
             'nama' => 'Honda Civic',
-            'merk' => 'Honda',
-            'tahun' => 2024,
-            'warna' => 'Hitam',
+            'brand' => 'Honda',
             'harga' => 250000000,
-            'deskripsi' => 'Mobil sedan',
+            'tahun' => 2024,
+            'transmisi' => 'CVT',
+            'bahan_bakar' => 'Bensin',
+            'status' => 'tersedia',
+            'foto' => null,
         ];
     }
 }

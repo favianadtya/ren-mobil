@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('mobil', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
-            $table->string('merk', 100);
+            $table->string('nama');
+            $table->string('brand');
+            $table->unsignedBigInteger('harga');
             $table->unsignedSmallInteger('tahun');
-            $table->string('warna', 50);
-            $table->decimal('harga', 15, 2);
-            $table->text('deskripsi')->nullable();
+            $table->enum('transmisi', ['Manual', 'Matic', 'CVT']);
+            $table->enum('bahan_bakar', ['Bensin', 'Diesel', 'Hybrid', 'Listrik']);
+            $table->enum('status', ['tersedia', 'sold'])->default('tersedia');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
