@@ -49,7 +49,7 @@ class MobilController extends Controller
             'merk' => $required . 'string|max:100',
             'tahun' => $required . 'integer|min:1886|max:' . (now()->year + 1),
             'warna' => $required . 'string|max:50',
-            'harga' => $required . 'numeric|min:0',
+            'harga' => $required . 'numeric|min:0|max:9999999999999.99',
             'deskripsi' => $partial ? 'sometimes|nullable|string' : 'nullable|string',
         ];
     }

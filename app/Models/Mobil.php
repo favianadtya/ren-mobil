@@ -16,4 +16,11 @@ class Mobil extends Model
         'harga',
         'deskripsi',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'harga' => 'decimal:2',
+        ];
+    }
 }
