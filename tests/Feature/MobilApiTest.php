@@ -16,19 +16,19 @@ class MobilApiTest extends TestCase
 
         $this->getJson('/api/mobil')
             ->assertOk()
-            ->assertJsonCount(1)
-            ->assertJsonFragment(['nama' => 'Honda Civic']);
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.nama', 'Honda Civic');
 
-        $this->getJson('/api/mobil/' . $mobil->id)
+        $this->getJson('/api/mobil/'.$mobil->id)
             ->assertOk()
-            ->assertJsonPath('brand', 'Honda');
+            ->assertJsonPath('data.brand', 'Honda');
     }
 
     public function test_it_creates_mobil(): void
     {
         $this->postJson('/api/mobil', $this->mobilData())
             ->assertCreated()
-            ->assertJsonPath('nama', 'Honda Civic');
+            ->assertJsonPath('data.nama', 'Honda Civic');
 
         $this->assertDatabaseHas('mobil', [
             'nama' => 'Honda Civic',
@@ -40,9 +40,9 @@ class MobilApiTest extends TestCase
     {
         $mobil = Mobil::query()->create($this->mobilData());
 
-        $this->patchJson('/api/mobil/' . $mobil->id, ['harga' => 275000000])
+        $this->patchJson('/api/mobil/'.$mobil->id, ['harga' => 275000000])
             ->assertOk()
-            ->assertJsonPath('harga', 275000000);
+            ->assertJsonPath('data.harga', 275000000);
 
         $this->assertDatabaseHas('mobil', [
             'id' => $mobil->id,
@@ -55,7 +55,9 @@ class MobilApiTest extends TestCase
     {
         $mobil = Mobil::query()->create($this->mobilData());
 
-        $this->deleteJson('/api/mobil/' . $mobil->id)->assertNoContent();
+        $this->deleteJson('/api/mobil/'.$mobil->id)
+            ->assertOk()
+            ->assertJsonPath('message', 'Data mobil berhasil dihapus');
 
         $this->assertDatabaseMissing('mobil', ['id' => $mobil->id]);
     }

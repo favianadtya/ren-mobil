@@ -20,7 +20,7 @@ REST API showroom mobil menggunakan Laravel 12 dan MySQL. Data mobil disimpan pa
 
 ## Endpoint
 
-Semua endpoint menerima dan mengembalikan JSON.
+Semua endpoint menerima dan mengembalikan JSON. Respons sukses berisi `message` dan `data`; respons 404 berisi `message`.
 
 | Metode | Endpoint | Fungsi |
 |---|---|---|
@@ -36,17 +36,19 @@ Contoh body untuk `POST`:
 ```json
 {
   "nama": "Honda Civic",
-  "merk": "Honda",
-  "tahun": 2024,
-  "warna": "Hitam",
+  "brand": "Honda",
   "harga": 250000000,
-  "deskripsi": "Mobil sedan"
+  "tahun": 2024,
+  "transmisi": "CVT",
+  "bahan_bakar": "Bensin",
+  "status": "tersedia",
+  "foto": "https://example.com/honda-civic.jpg"
 }
 ```
 
-Kolom mobil terdiri dari `nama`, `brand`, `harga`, `tahun`, `transmisi`, `bahan_bakar`, `status`, dan `foto`. `transmisi` menerima `Manual`, `Matic`, atau `CVT`; `bahan_bakar` menerima `Bensin`, `Diesel`, `Hybrid`, atau `Listrik`; `status` menerima `tersedia` atau `sold` dan secara default bernilai `tersedia`. `foto` bersifat opsional.
+Kolom mobil terdiri dari `nama`, `brand`, `harga`, `tahun`, `transmisi`, `bahan_bakar`, `status`, dan `foto`. `nama` berupa teks maksimal 255 karakter; `brand` berupa teks maksimal 100 karakter; `harga` bilangan bulat nonnegatif; dan `tahun` bilangan bulat antara 1900 dan satu tahun dari tahun berjalan. `transmisi` menerima `Manual`, `Matic`, atau `CVT`; `bahan_bakar` menerima `Bensin`, `Diesel`, `Hybrid`, atau `Listrik`; `status` menerima `tersedia` atau `sold` dan secara default bernilai `tersedia`. `foto` adalah URL opsional.
 
-`PUT` memerlukan `nama`, `merk`, `tahun`, `warna`, dan `harga`; `PATCH` hanya memerlukan nilai yang ingin diubah. Respons berhasil menggunakan status 200 untuk GET dan update, 201 untuk create, serta 204 untuk delete. Data tidak ditemukan menghasilkan 404 dan input tidak valid menghasilkan 422.
+`PUT` memerlukan seluruh field wajib; `PATCH` hanya memvalidasi field yang dikirim. Respons berhasil menggunakan status 200 untuk GET, update, dan delete serta 201 untuk create. Data tidak ditemukan menghasilkan 404 dan input tidak valid menghasilkan 422.
 
 ## Pengujian
 
